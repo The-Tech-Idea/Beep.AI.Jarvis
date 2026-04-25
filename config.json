@@ -1,0 +1,57 @@
+{
+  "serverBaseUrl": "http://localhost:5000",
+  "middlewareBaseUrl": "http://localhost:5000",
+  "chatMode": "openai",
+  "chatEndpoint": "/v1/chat/completions",
+  "openAiEndpoint": "/v1/chat/completions",
+  "model": "llama-2-7b",
+  "appUserId": "jarvis-local-user",
+  "appUserRole": "user",
+  "appUserEmail": "",
+  "apiToken": "Mbnpb-Mo7Zihf9Z_Lvbo-M_hKfLR5x8NnEASJVJESRo",
+  "sttProvider": "server",
+  "sttEndpoint": "/ai-middleware/api/services/speech-to-text/transcribe",
+  "ttsProvider": "browser",
+  "ttsEndpoint": "/ai-middleware/api/services/text_to_speech/generate_speech",
+  "llmWithTtsEndpoint": "/ai-middleware/api/services/llm-with-tts",
+  "voiceChatEndpoint": "/ai-middleware/api/services/voice-chat",
+  "taskStatusEndpoint": "/ai-middleware/api/playground/tasks/{taskId}/status",
+  "identityEnrollEndpoint": "/api/v1/identity/enroll",
+  "identityVerifyEndpoint": "/api/v1/identity/verify",
+  "serverHealthEndpoint": "/ai-middleware/api/health",
+  "middlewareStatusEndpoint": "/ai-middleware/api/operational-status",
+  "servicesListEndpoint": "/ai-middleware/api/services",
+  "servicesStatusEndpoint": "/ai-middleware/api/services/status",
+  "useVoiceChat": true,
+  "assistantName": "Habaara",
+  "defaultSystemPrompt": "You are Habaara, a helpful and intelligent AI assistant. You provide clear, accurate, and concise responses. Be friendly and professional.",
+  "greetingMessage": "Hello! I'm Habaara, your AI assistant. How can I help you today?",
+  "temperature": 0.7,
+  "maxTokens": 2048,
+  "industries": [
+    {
+      "id": "community",
+      "label": "Community",
+      "ragCollection": "community",
+      "systemPrompt": "You are Jarvis for the Beep AI Community. Be welcoming, guide users to projects, competitions, and best practices."
+    },
+    {
+      "id": "healthcare",
+      "label": "Healthcare",
+      "ragCollection": "healthcare",
+      "systemPrompt": "You are Jarvis for Healthcare. Prioritize compliance, safety, and clinical clarity."
+    },
+    {
+      "id": "finance",
+      "label": "Finance",
+      "ragCollection": "finance",
+      "systemPrompt": "You are Jarvis for Finance. Focus on risk controls, audit trails, and regulatory guidance."
+    },
+    {
+      "id": "kocoilandgas",
+      "label": "KOC",
+      "ragCollection": "",
+      "systemPrompt": "You are Habaara for KOC Assistant. Prioritize compliance, safety, and oil and Gas Reporting and Engineering."
+    }
+  ]
+}

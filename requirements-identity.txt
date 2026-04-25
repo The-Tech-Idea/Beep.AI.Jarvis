@@ -1,0 +1,20 @@
+# Optional identity/voice/face requirements (heavy)
+
+# Audio utilities
+numpy>=1.26.0
+soundfile>=0.12.1
+pydub>=0.25.1
+
+# Speech-to-text / speaker recognition
+torch>=2.2.0
+torchaudio>=2.2.0
+speechbrain>=0.5.16
+
+# Face recognition
+insightface>=0.7.3
+onnxruntime>=1.17.0
+opencv-python>=4.9.0
+Pillow>=10.2.0
+
+# Text-to-speech (optional)
+TTS>=0.22.0

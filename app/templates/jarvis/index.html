@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beep AI Jarvis</title>
+    <link rel="stylesheet" href="/static/css/jarvis.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar" id="sidebar">
+        <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
+          <span class="toggle-icon">◀</span>
+        </button>
+        
+        <div class="sidebar-content">
+          <a class="brand" href="/admin" aria-label="Open Jarvis Admin">
+            <div class="brand-mark">◆</div>
+            <div class="brand-text">
+              <span>Beep AI</span>
+              <small>Jarvis Console</small>
+            </div>
+          </a>
+
+          <section class="panel">
+            <h3>Industry Profile</h3>
+            <div class="field">
+              <label for="industry-select">Active Industry</label>
+              <select id="industry-select"></select>
+            </div>
+            <div class="status-grid">
+              <div class="status-card">
+                <span>Server</span>
+                <strong id="status-server">Unknown</strong>
+              </div>
+              <div class="status-card">
+                <span>Listening</span>
+                <strong id="status-mic">Idle</strong>
+              </div>
+              <div class="status-card">
+                <span>Speech</span>
+                <strong id="status-tts">Ready</strong>
+              </div>
+            </div>
+            <button class="ghost" id="btn-check-server">Check Server</button>
+          </section>
+
+          <section class="panel">
+            <h3>Identity</h3>
+            <p class="muted">
+              Local-only enrollment. Plug in server endpoints when ready.
+            </p>
+            <div class="identity-list">
+              <div class="identity-item">
+                <span>Voice</span>
+                <strong id="voice-status">Not enrolled</strong>
+                <button class="ghost" id="btn-enroll-voice">Enroll Voice</button>
+              </div>
+              <div class="identity-item">
+                <span>Face</span>
+                <strong id="face-status">Not enrolled</strong>
+                <button class="ghost" id="btn-enroll-face">Enroll Face</button>
+              </div>
+            </div>
+            <button id="btn-verify">Verify Identity</button>
+            <small class="hint" id="verify-result">Verification idle</small>
+          </section>
+
+          <section class="panel">
+            <h3>Modes</h3>
+            <div class="field">
+              <label for="head-mode">Talking Head</label>
+              <select id="head-mode">
+                <option value="ascii">ASCII Terminal</option>
+                <option value="avatar" selected>Jarvis Avatar</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="handsfree-toggle">Hands-free</label>
+              <div class="switch">
+                <input type="checkbox" id="handsfree-toggle" />
+                <span></span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <h1 id="assistant-title">Jarvis</h1>
+            <p id="industry-summary">Adaptive assistant connected to AI Server.</p>
+          </div>
+          <div class="top-actions">
+            <button class="ghost" id="btn-clear">Clear Log</button>
+            <button class="ghost" id="btn-show-log">Show Log</button>
+            <a class="ghost link-button" href="/admin" id="btn-admin">Admin</a>
+          </div>
+        </header>
+
+        <section class="stage">
+          <div class="head-panel">
+            <div class="head-shell ascii-shell" id="ascii-shell">
+              <pre id="ascii-head" class="ascii-head"></pre>
+              <div class="scanline"></div>
+            </div>
+            <div class="head-shell avatar-shell" id="avatar-shell">
+              <canvas id="head-canvas" width="360" height="360"></canvas>
+              <div class="pulse-ring"></div>
+            </div>
+          </div>
+          <div class="terminal-panel">
+            <div class="terminal-header">
+              <h2>Conversation</h2>
+              <span id="session-status">Standby</span>
+            </div>
+            <div id="terminal-log" class="terminal-log"></div>
+            <!-- Hidden System Log Panel -->
+            <div id="system-log-panel" class="system-log-panel hidden">
+              <div class="terminal-header">
+                <h2>System Log</h2>
+              </div>
+              <div id="system-log" class="terminal-log system-log"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="controls">
+          <!-- Knowledge Base Bar -->
+          <div class="kb-bar">
+            <div class="kb-selector">
+              <span class="kb-icon" title="Knowledge Base">📚</span>
+              <select id="rag-collection" title="Select knowledge collection">
+                <option value="">No collection</option>
+              </select>
+              <small id="rag-status" class="kb-status">0 collections</small>
+            </div>
+            <div class="kb-actions">
+              <button class="kb-btn" id="btn-rag-refresh" title="Refresh collections">↻</button>
+              <button class="kb-btn" id="btn-rag-docs" title="View documents">📄</button>
+              <button class="kb-btn" id="btn-rag-upload" title="Upload document">⬆</button>
+            </div>
+            <input type="file" id="rag-file-input" style="display:none" accept=".txt,.pdf,.docx,.md,.html,.csv,.json" />
+          </div>
+          
+          <div class="input-group">
+            <textarea id="text-input" rows="2" placeholder="Type or speak..."></textarea>
+            <button id="btn-send">Send</button>
+          </div>
+          <div class="controls-row">
+            <button id="btn-talk" class="talk">Hold to Talk</button>
+            <button id="btn-stop" class="ghost">Stop</button>
+            <span class="hint" id="mic-hint">Mic idle</span>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <!-- Jarvis Avatar Animation -->
+    <script src="/static/js/animations/jarvis-avatar.js"></script>
+    <script src="/static/js/app.js"></script>
+  </body>
+</html>

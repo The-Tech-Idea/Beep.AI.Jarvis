@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jarvis Admin</title>
+    <link rel="stylesheet" href="/static/css/jarvis.css" />
+    <link rel="stylesheet" href="/static/css/admin.css" />
+  </head>
+  <body>
+    <div class="admin-shell">
+      <header class="admin-header">
+        <div class="brand">
+          <div class="brand-mark">?</div>
+          <div class="brand-text">
+            <span>Beep AI</span>
+            <small>Jarvis Admin</small>
+          </div>
+        </div>
+        <div class="admin-actions">
+          <a class="ghost link-button" href="/">Back to Console</a>
+        </div>
+      </header>
+
+      <section class="panel admin-panel">
+        <div class="admin-title">
+          <h1>Client Settings</h1>
+          <p class="muted">
+            Reads and writes <code>config.json</code>. Use the buttons below to open
+            the file when running locally.
+          </p>
+        </div>
+
+        <div class="admin-status">
+          <span id="status-text">Waiting for config.json</span>
+        </div>
+
+        <div class="admin-grid">
+          <div class="field">
+            <label for="server-host">AI Server Host</label>
+            <input id="server-host" type="text" placeholder="http://localhost" />
+          </div>
+          <div class="field">
+            <label for="server-port">AI Server Port</label>
+            <input id="server-port" type="number" min="1" max="65535" placeholder="5000" />
+          </div>
+          <div class="field">
+            <label for="middleware-host">Middleware Host</label>
+            <input id="middleware-host" type="text" placeholder="http://localhost" />
+          </div>
+          <div class="field">
+            <label for="middleware-port">Middleware Port</label>
+            <input id="middleware-port" type="number" min="1" max="65535" placeholder="5006" />
+          </div>
+          <div class="field">
+            <label for="api-token">API Token</label>
+            <input id="api-token" type="password" placeholder="Required for server calls" />
+          </div>
+          <div class="field">
+            <label for="model-id">Model ID</label>
+            <input id="model-id" type="text" placeholder="llama-2-7b" />
+          </div>
+          <div class="field">
+            <label for="app-user-id">App User ID</label>
+            <input id="app-user-id" type="text" placeholder="jarvis-local-user" />
+          </div>
+          <div class="field">
+            <label for="app-user-role">App User Role</label>
+            <input id="app-user-role" type="text" placeholder="user" />
+          </div>
+          <div class="field">
+            <label for="app-user-email">App User Email</label>
+            <input id="app-user-email" type="email" placeholder="optional@example.com" />
+          </div>
+          <div class="field">
+            <label for="chat-mode">Chat Mode</label>
+            <select id="chat-mode">
+              <option value="middleware">Middleware</option>
+              <option value="openai">OpenAI Compatible</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="stt-provider">STT Provider</label>
+            <select id="stt-provider">
+              <option value="server">Server</option>
+              <option value="browser">Browser</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="tts-provider">TTS Provider</label>
+            <select id="tts-provider">
+              <option value="server">Server</option>
+              <option value="browser">Browser</option>
+            </select>
+          </div>
+          <div class="field inline-field">
+            <label for="voice-chat">Use Voice Chat</label>
+            <div class="switch">
+              <input type="checkbox" id="voice-chat" />
+              <span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="computed-url">
+          <span class="muted">AI Server Base URL</span>
+          <strong id="computed-url">-</strong>
+        </div>
+        <div class="computed-url">
+          <span class="muted">Middleware Base URL</span>
+          <strong id="computed-middleware-url">-</strong>
+        </div>
+      </section>
+
+      <section class="panel admin-panel">
+        <div class="admin-title">
+          <h1>Assistant Personality</h1>
+          <p class="muted">
+            Configure Jarvis's name, behavior, and system prompts for the LLM.
+          </p>
+        </div>
+
+        <div class="admin-grid">
+          <div class="field full-width">
+            <label for="assistant-name">Assistant Name</label>
+            <input id="assistant-name" type="text" placeholder="Jarvis" />
+          </div>
+          <div class="field full-width">
+            <label for="default-system-prompt">Default System Prompt</label>
+            <textarea id="default-system-prompt" rows="4" placeholder="You are Jarvis, a helpful AI assistant..."></textarea>
+          </div>
+          <div class="field full-width">
+            <label for="greeting-message">Greeting Message</label>
+            <input id="greeting-message" type="text" placeholder="Hello! I'm Jarvis, your AI assistant. How can I help you today?" />
+          </div>
+          <div class="field">
+            <label for="temperature">Temperature</label>
+            <input id="temperature" type="number" min="0" max="2" step="0.1" placeholder="0.7" />
+          </div>
+          <div class="field">
+            <label for="max-tokens">Max Tokens</label>
+            <input id="max-tokens" type="number" min="100" max="8192" step="100" placeholder="2048" />
+          </div>
+        </div>
+
+        <div class="admin-subtitle">
+          <h2>Industry Prompts</h2>
+          <p class="muted">Configure system prompts for different industry contexts.</p>
+        </div>
+
+        <div id="industries-container" class="industries-container">
+          <!-- Industries will be rendered by JavaScript -->
+        </div>
+
+        <div class="admin-buttons">
+          <button class="ghost" id="btn-add-industry">+ Add Industry</button>
+        </div>
+      </section>
+
+      <section class="panel admin-panel">
+        <div class="admin-buttons">
+          <button class="ghost" id="btn-open-file">Open config.json</button>
+          <button class="ghost" id="btn-save-file">Save to config.json</button>
+        </div>
+        <input
+          id="file-input"
+          type="file"
+          accept="application/json"
+          class="file-input"
+        />
+      </section>
+    </div>
+
+    <script src="/static/js/admin.js"></script>
+  </body>
+</html>
